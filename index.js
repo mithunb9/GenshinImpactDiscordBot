@@ -15,9 +15,9 @@ client.on("ready", () => {
 });
 
 client.on("message", async (msg) => {
-  if (msg.content === "mithun") {
-    msg.reply("Siddarth is gay");
-  } else if (msg.content === "artifacts") {
+  const command = msg.content.split(" ")[0];
+
+  if (msg.content.startsWith("artifacts")) {
     const data = await getArtifactData();
     console.log(data);
 
@@ -26,8 +26,7 @@ client.on("message", async (msg) => {
       .setDescription(data);
 
     msg.reply(artifactEmbed);
-  const command = msg.content.split(" ")[0];
-  else if (command === "!main") {
+  } else if (command === "!main") {
     const playerMain = msg.content.split(" ")[1];
     write(msg.member.user.id, { main: playerMain });
     msg.reply(`Added ${playerMain} as your main`);
