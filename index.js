@@ -10,8 +10,9 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
-  if (msg.content === "ping") {
-    msg.reply("Pong!");
+  if (msg.content === "mithun") {
+    msg.reply("Siddarth is gay");
+  } else if (msg.content === "stats") {
   }
 });
 
