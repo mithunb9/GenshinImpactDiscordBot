@@ -1,4 +1,7 @@
 const Discord = require("discord.js");
+const { init } = require("./database/init");
+const { read } = require("./database/read");
+const { write } = require("./database/write");
 const client = new Discord.Client();
 
 const { getArtifactData } = require("./stats/stats.js");
@@ -23,6 +26,11 @@ client.on("message", async (msg) => {
       .setDescription(data);
 
     msg.reply(artifactEmbed);
+  const command = msg.content.split(" ")[0];
+  else if (command === "!main") {
+    const playerMain = msg.content.split(" ")[1];
+    write(msg.member.user.id, { main: playerMain });
+    msg.reply(`Added ${playerMain} as your main`);
   }
 });
 
