@@ -3,8 +3,7 @@ const { init } = require("./database/init");
 const { read } = require("./database/read");
 const { write } = require("./database/write");
 const client = new Discord.Client();
-
-const { getArtifactData } = require("./genshin/artifacts.js");
+const { getArtifactData } = require("./genshin/artifacts");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
