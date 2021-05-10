@@ -1,17 +1,21 @@
 const axios = require("axios").default;
 
-const getArtifactData = async (scope = "") => {
+const getArtifactData = async () => {
   let response;
+  let artifactData = [];
 
   try {
     response = await axios.get("https://api.genshin.dev/artifacts/");
 
     for (let artifact of response.data) {
-      console.log(artifact);
+      let artifactQuery = await getSpecificArtifactData(artifact);
+
+      artifactData.push(artifactQuery);
     }
 
     return {
       list: response.data,
+      data: artifactData,
     };
   } catch (err) {
     console.error("Error getting artifact data", err);

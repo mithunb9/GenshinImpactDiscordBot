@@ -1,11 +1,14 @@
 const fs = require("fs");
 const { getArtifactData } = require("./artifacts");
 
-const initializeData = () => {
+const initializeData = async () => {
   const start = new Date();
   // code here
 
-  fs.writeFile("artifacts.json", JSON.stringify(getArtifactData()), (err) => {
+  let artifactData = JSON.stringify(await getArtifactData());
+
+  console.log(artifactData);
+  fs.writeFile("./core/data/artifacts.json", artifactData, (err) => {
     if (err) console.error(err);
   });
 
@@ -14,3 +17,5 @@ const initializeData = () => {
 };
 
 module.exports = { initializeData };
+
+initializeData();
