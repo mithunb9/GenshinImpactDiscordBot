@@ -5,7 +5,7 @@ const initializeData = () => {
   const start = new Date();
   // code here
 
-  fs.writeFile("data/artifacts.js", getArtifactData(), (err) => {
+  fs.writeFile("artifacts.json", JSON.stringify(getArtifactData()), (err) => {
     if (err) console.error(err);
   });
 
