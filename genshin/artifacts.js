@@ -5,6 +5,8 @@ const getArtifactData = async (scope = "") => {
     `https://api.genshin.dev/artifacts/${scope}`
   );
 
+  if (scope !== "") {
+  }
   return response.data;
 };
 
@@ -37,6 +39,22 @@ let oldData = [
   "viridescent-venerer",
   "wanderer-s-troupe",
 ];
+
+const prettify = (data) => {
+  let prettifiedData = [];
+  for (let term of data) {
+    const exp = /(?=\S*['-])([a-zA-Z'-]+)/;
+    let newString = term[0].toUpperCase() + term.slice(1);
+
+    newString = newString.replace(exp, "'");
+
+    console.log(term);
+  }
+  console.log(prettifiedData);
+};
+
+prettify(oldData);
+
 let capitalizedData = [
   "Adventurer",
   "Archaic-petra",

@@ -4,7 +4,7 @@ const { read } = require("./database/read");
 const { write } = require("./database/write");
 const client = new Discord.Client();
 
-const { getArtifactData } = require("./stats/stats.js");
+const { getArtifactData } = require("./genshin/artifacts.js");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -19,7 +19,6 @@ client.on("message", async (msg) => {
 
   if (msg.content.startsWith("artifacts")) {
     const data = await getArtifactData();
-    console.log(data);
 
     const artifactEmbed = new Discord.MessageEmbed()
       .setTitle("Artifacts")
