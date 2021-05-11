@@ -5,7 +5,9 @@ const { write } = require("./database/write");
 const client = new Discord.Client();
 const { initializeData } = require("./core/startup");
 
-// initializeData();
+const characterInformation = require("./core/data/characters.json");
+
+const { data } = require("cheerio/lib/api/attributes");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -20,31 +22,23 @@ client.on("message", async (msg) => {
   let subCommand = msg.content.split(" ")[1];
 
   if (msg.content.startsWith("artifacts")) {
-    // const data = await getArtifactData();
-    // const artifactEmbed = new Discord.MessageEmbed().setTitle("Artifacts");
-    // data.forEach((key, val) => {
-    //   artifactEmbed.addField(key, val + 1, true);
-    // });
-    // msg.reply(artifactEmbed);
   } else if (msg.content.startsWith("artifact")) {
-    // if (!isNaN(subCommand)) {
-    //   const data = await getArtifactData();
-    //   subCommand = data[subCommand - 1];
-    // }
-    // const data = await getArtifactData(subCommand);
-    // const artifactEmbed = new Discord.MessageEmbed().setTitle(data.name);
-    // artifactEmbed
-    //   .addField("Max Rarity", data.max_rarity)
-    //   .addField("Two Piece Bonus", data["2-piece_bonus"])
-    //   .addField("Four PIece Bonus", data["4-piece_bonus"])
-    //   .setThumbnail(
-    //     "https://static.wikia.nocookie.net/gensin-impact/images/e/ec/Item_Adventurer%27s_Flower.png/revision/latest/scale-to-width-down/256?cb=20201120051635"
-    //   );
-    // msg.reply(artifactEmbed);
-  } else if (command === "!main") {
-    const playerMain = msg.content.split(" ")[1];
-    write(msg.member.user.id, { main: playerMain });
-    msg.reply(`Added ${playerMain} as your main`);
+  } else if (command === "!add") {
+    const playerCharacter = msg.content.split(" ")[1];
+    let userID = msg.member.user.id;
+    if (characterInformation[playerCharacter]) {
+      let remindDays = characterInformation[playerCharacter]["talentDays"];
+      for (let day of remindDays) {
+        write(day, {
+          [userID]: {
+            message: `You will need to do your ${playerCharacter}'s talent level up domain today`,
+          },
+        });
+      }
+      msg.reply(`Set reminders for ${playerCharacter}`);
+    } else {
+      msg.reply("Character not found!");
+    }
   }
 });
 

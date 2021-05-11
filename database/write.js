@@ -6,15 +6,7 @@ const { read } = require("./read");
 init();
 
 async function write(userID, data) {
-  const details = await read(userID);
-  firebase
-    .firestore()
-    .collection("players")
-    .doc(userID)
-    .set({
-      ...details,
-      ...data,
-    });
+  firebase.firestore().collection("days").doc(userID).update(data);
 }
 
 module.exports = { write };

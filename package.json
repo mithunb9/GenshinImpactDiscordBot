@@ -20,6 +20,7 @@
   "homepage": "https://github.com/mithunb9/GenshinImpactDiscordBot#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.9",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "firebase": "^8.4.2"

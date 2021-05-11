@@ -7,7 +7,6 @@ const initializeData = async () => {
 
   let artifactData = JSON.stringify(await getArtifactData());
 
-  console.log(artifactData);
   fs.writeFile("./core/data/artifacts.json", artifactData, (err) => {
     if (err) console.error(err);
   });
@@ -17,5 +16,3 @@ const initializeData = async () => {
 };
 
 module.exports = { initializeData };
-
-initializeData();
